@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Y2K Setup Wizard - Trình Tạo Mã Độc</title>
+    <!-- Nhúng Font chữ không lỗi Tiếng Việt -->
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Giao diện Y2K / Windows 95 */
+        body {
+            background-color: #008080; /* Teal background */
+            font-family: 'Courier Prime', monospace;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .wizard-window {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #ffffff #000000 #000000 #ffffff;
+            width: 550px;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title-bar {
+            background: #000080;
+            color: white;
+            padding: 4px 8px;
+            font-family: 'Space Mono', monospace;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .wizard-body {
+            display: flex;
+            height: 300px;
+        }
+
+        /* Banner bên trái */
+        .sidebar {
+            width: 150px;
+            background: #008080;
+            border-right: 2px solid #ffffff;
+            display: flex;
+            align-items: flex-end;
+            padding: 10px;
+            color: white;
+            font-family: 'Space Mono', monospace;
+            font-size: 24px;
+            font-weight: bold;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+
+        .content-area {
+            flex-grow: 1;
+            padding: 20px;
+            position: relative;
+        }
+
+        .step {
+            display: none; /* Ẩn các bước mặc định */
+        }
+
+        .step.active {
+            display: block; /* Chỉ hiện bước active */
+        }
+
+        /* Thành phần Form */
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"], textarea, select {
+            width: 90%;
+            padding: 5px;
+            margin-top: 5px;
+            font-family: 'Courier Prime', monospace;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080; /* Inset border */
+            background: #ffffff;
+        }
+
+        textarea {
+            height: 60px;
+            resize: none;
+        }
+
+        .upload-box {
+            border: 2px dashed #808080;
+            background: #ffffff;
+            padding: 20px;
+            text-align: center;
+            margin-top: 15px;
+            cursor: pointer;
+            width: 85%;
+        }
+
+        /* Thanh Footer chứa nút bấm */
+        .footer {
+            border-top: 2px solid;
+            border-color: #ffffff #000000 #000000 #ffffff;
+            padding: 15px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        button {
+            font-family: 'Space Mono', monospace;
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #ffffff #000000 #000000 #ffffff;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:active {
+            border-color: #000000 #ffffff #ffffff #000000;
+        }
+
+        button:disabled {
+            color: #808080;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            cursor: not-allowed;
+        }
+
+        /* Loading Bar cho Bước cuối */
+        .progress-bar {
+            width: 90%;
+            height: 20px;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            margin-top: 20px;
+            background: #ffffff;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #000080;
+            width: 0%;
+            transition: width 2s linear;
+        }
+
+        .final-link {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wizard-window">
+        <div class="title-bar">
+            <span>Y2K_Love_Virus_Setup.exe</span>
+            <span>X</span>
+        </div>
+        
+        <div class="wizard-body">
+            <!-- Sidebar trang trí cố định -->
+            <div class="sidebar">
+                Y2K INSTALLER
+            </div>
+
+            <!-- Khu vực nội dung thay đổi theo Bước -->
+            <div class="content-area">
+                
+                <!-- BƯỚC 0: WELCOME -->
+                <div class="step active" id="step-0">
+                    <h3 style="font-family: 'Space Mono', monospace; margin-top: 0;">Chào mừng,</h3>
+                    <p>Trình duyệt này sẽ giúp bạn đóng gói một tệp tin "mã độc" chứa đầy những kỷ niệm để gửi cho người đặc biệt.</p>
+                    <p>Khuyến nghị: Đóng tất cả các ứng dụng nhạt nhẽo khác trước khi tiếp tục.</p>
+                </div>
+
+                <!-- BƯỚC 1: TARGET INFO -->
+                <div class="step" id="step-1">
+                    <h4 style="margin-top: 0;">Bước 1: Khai báo mục tiêu</h4>
+                    <label>Tên bí danh của bạn (Hacker):</label>
+                    <input type="text" id="sender-name" placeholder="VD: Người giấu mặt">
+                    
+                    <label>Tên mục tiêu (Nạn nhân):</label>
+                    <input type="text" id="receiver-name" placeholder="VD: Cậu bạn ngốc">
+                </div>
+
+                <!-- BƯỚC 2: PAYLOAD -->
+                <div class="step" id="step-2">
+                    <h4 style="margin-top: 0;">Bước 2: Gắn tệp đính kèm</h4>
+                    <p style="font-size: 12px; margin-bottom: 5px;">Tải lên hình ảnh hoặc video "dìm hàng" nhất.</p>
+                    <div class="upload-box" onclick="document.getElementById('file-upload').click()">
+                        [ Kéo thả hoặc Click để Upload ]<br>
+                        <span style="font-size: 10px; color: #808080;">(Hỗ trợ: JPG, PNG, MP4)</span>
+                    </div>
+                    <input type="file" id="file-upload" style="display: none;">
+                </div>
+
+                <!-- BƯỚC 3: RANSOM NOTE -->
+                <div class="step" id="step-3">
+                    <h4 style="margin-top: 0;">Bước 3: Yêu sách tống tiền</h4>
+                    <label>Viết lời nhắn bí mật ở Trạm cuối:</label>
+                    <textarea placeholder="VD: Chúc mừng sinh nhật nhé..."></textarea>
+                    
+                    <label>Chọn giá chuộc để mở khóa dữ liệu:</label>
+                    <select id="ransom-price">
+                        <option value="trasua">1 ly trà sữa (ít ngọt, ít đá)</option>
+                        <option value="bundau">1 mẹt bún đậu mắm tôm đầy đủ</option>
+                        <option value="kiss">Bắt buộc phải hôn một cái</option>
+                    </select>
+                </div>
+
+                <!-- BƯỚC 4: FINISH -->
+                <div class="step" id="step-4">
+                    <h4 style="margin-top: 0;">Bước 4: Đang biên dịch...</h4>
+                    <p id="loading-text">Hệ thống đang đóng
